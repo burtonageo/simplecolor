@@ -1,0 +1,19 @@
+[package]
+name = "simplecolor"
+version = "0.0.1"
+authors = ["George Burton <burtonageo@gmail.com>"]
+license = "MIT"
+
+[lib]
+name = "simplecolor"
+
+# Disable doctests for now as they fail with a mysterious error
+# that the types in the test cannot be found
+doctest = false
+
+[dependencies]
+num = "*"
+
+[dev-dependencies]
+quickcheck = "*"
+quickcheck_macros = "*"
