@@ -47,7 +47,7 @@ impl<T: Channel> Rgba<T> {
 
     /// Construct an Rgba color piecewise from individual components. Each
     /// component is clamped between zero and one.
-    pub fn with_components(r: T, g: T, b: T, a: T) -> Rgba<T> {
+    pub const fn with_components(r: T, g: T, b: T, a: T) -> Rgba<T> {
         Rgba {
             rgb: Rgb::with_components(r, g, b),
             a: a
@@ -56,25 +56,25 @@ impl<T: Channel> Rgba<T> {
 
     /// Construct an Rgba color from a 4-length slice of Floating numbers.
     /// Each component is clamped between zero and one.
-    pub fn from_slice(col: [T; 4]) -> Rgba<T> {
+    pub const fn from_slice(col: [T; 4]) -> Rgba<T> {
         Rgba::with_components(col[0], col[1], col[2], col[3])
     }
 
     /// Returns the red channel value.
     #[inline]
-    pub fn r(&self) -> T { self.rgb.r() }
+    pub const fn r(&self) -> T { self.rgb.r() }
 
     /// Returns the green channel value.
     #[inline]
-    pub fn g(&self) -> T { self.rgb.g() }
+    pub const fn g(&self) -> T { self.rgb.g() }
 
     /// Returns the blue channel value.
     #[inline]
-    pub fn b(&self) -> T { self.rgb.b() }
+    pub const fn b(&self) -> T { self.rgb.b() }
 
     /// Returns the alpha channel value.
     #[inline]
-    pub fn a(&self) -> T { self.a }
+    pub const fn a(&self) -> T { self.a }
 
     /// Set the red channel value. The new value is clamped between zero and one.
     #[inline]
@@ -93,7 +93,7 @@ impl<T: Channel> Rgba<T> {
     pub fn set_a(&mut self, a: T) { self.a = a; }
 
     /// Create an Rgba color from this color, ignoring the alpha
-    pub fn rgb(&self) -> Rgb<T> { self.rgb }
+    pub const fn rgb(&self) -> Rgb<T> { self.rgb }
 
     /// Return each component in a 4-element tuple. Useful for destructuring.
     ///
@@ -106,12 +106,12 @@ impl<T: Channel> Rgba<T> {
     /// assert_eq!(b, 0.67f32);
     /// assert_eq!(1, 1.0f32);
     /// ```
-    pub fn components(&self) -> (T, T, T, T) {
+    pub const fn components(&self) -> (T, T, T, T) {
         (self.r(), self.g(), self.b(), self.a())
     }
     
     /// Return each component in a 4-element slice.
-    pub fn to_slice(&self) -> [T; 4] {
+    pub const fn to_slice(&self) -> [T; 4] {
         [self.r(), self.g(), self.b(), self.a()]
     }
 }

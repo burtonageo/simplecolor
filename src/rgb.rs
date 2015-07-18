@@ -47,12 +47,12 @@ pub struct Rgb<T: Channel> {
 impl<T: Channel> Rgb<T> {
     /// Construct an Rgb color from a 3-length slice of Channels.
     /// Each component is clamped between zero and one.
-    pub fn from_slice(col: [T; 3]) -> Rgb<T> {
+    pub const fn from_slice(col: [T; 3]) -> Rgb<T> {
         Rgb::with_components(col[0], col[1], col[2])
     }
     
     /// Return each component in a 3-element slice.
-    pub fn to_slice(&self) -> [T; 3] {
+    pub const fn to_slice(&self) -> [T; 3] {
         [self.r, self.g, self.b]
     }
 
@@ -63,7 +63,7 @@ impl<T: Channel> Rgb<T> {
 
     /// Construct an Rgb color piecewise from individual components. Each
     /// component is clamped between zero and one.
-    pub fn with_components(r: T, g: T, b: T) -> Rgb<T> {
+    pub const fn with_components(r: T, g: T, b: T) -> Rgb<T> {
         Rgb {
             r: r,
             g: g,
@@ -73,15 +73,15 @@ impl<T: Channel> Rgb<T> {
 
     /// Returns the red channel value.
     #[inline]
-    pub fn r(&self) -> T { self.r }
+    pub const fn r(&self) -> T { self.r }
 
     /// Returns the blue channel value.
     #[inline]
-    pub fn g(&self) -> T { self.g }
+    pub const fn g(&self) -> T { self.g }
 
     /// Returns the green channel value.
     #[inline]
-    pub fn b(&self) -> T { self.b }
+    pub const fn b(&self) -> T { self.b }
 
     /// Set the red channel value. The new value is clamped between zero and one.
     #[inline]
@@ -96,7 +96,7 @@ impl<T: Channel> Rgb<T> {
     pub fn set_b(&mut self, b: T) { self.b = b; }
 
     /// Create an Rgba color from this color, using the supplied alpha.
-    pub fn rgba(&self, a: T) -> Rgba<T> {
+    pub const fn rgba(&self, a: T) -> Rgba<T> {
         Rgba::with_components(self.r, self.g, self.b, a)
     }
 
@@ -110,7 +110,7 @@ impl<T: Channel> Rgb<T> {
     /// assert_eq!(g, 0.3f32);
     /// assert_eq!(b, 0.67f32);
     /// ```
-    pub fn components(&self) -> (T, T, T) {
+    pub const fn components(&self) -> (T, T, T) {
         (self.r, self.g, self.b)
     }
 }

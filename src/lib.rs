@@ -18,6 +18,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![feature(cmp_partial)]
+#![feature(const_fn)]
 #![deny(warnings)]
 #![warn(missing_docs)]
 
