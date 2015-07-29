@@ -20,6 +20,7 @@
 #![feature(cmp_partial)]
 #![feature(const_fn)]
 #![deny(warnings)]
+#![allow(deprecated)]
 #![warn(missing_docs)]
 
 //! Generic Rgb and Rgba colors, and common functions for
