@@ -17,7 +17,6 @@
 // AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#![feature(cmp_partial)]
 #![feature(const_fn)]
 #![deny(warnings)]
 #![allow(deprecated)]
@@ -41,8 +40,6 @@ pub use rgba::Rgba;
 
 use num::{Float, NumCast, One, PrimInt, Unsigned, Zero};
 use num::traits::cast;
-
-use std::cmp::{partial_min, partial_max};
 
 #[macro_use]
 mod simplecolor_macros;
@@ -85,11 +82,16 @@ pub trait Color<T: Channel> {
 /// panic if either the min or max value cannot be compared
 /// to the value to be clamped(e.g. if they are NaNs).
 #[inline]
-fn clamp<T: PartialOrd>(x: T, min: T, max: T) -> T {
+fn clamp<O: PartialOrd>(x: O, min: O, max: O) -> O {
+    use std::cmp::Ordering;
     assert!(max >= min);
-    partial_min(x, max)
-        .and_then(|y| partial_max(y, min))
-        .unwrap()
+    match x.partial_cmp(&min) {
+        Some(Ordering::Greater) => match x.partial_cmp(&max) {
+            Some(Ordering::Less) => x,
+            _ => max
+        },
+        _ => min
+    }
 }
 
 /// Clamp a floating value between zero and one.
